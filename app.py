@@ -34,12 +34,13 @@ data_top = selected_country.head()
 for row in data_top.index:
         row_id = row
 
+print(row_id)
 def get_total_dataframe(df):
         total_dataframe = pd.DataFrame({
         'Status':['cases', 'recovered', 'deaths', 'active'],
-        'Number of cases':(df.iloc[row_id]['active'],
-        df.iloc[row_id]['active'],
-        df.iloc[row_id]['recovered'],df.iloc[row_id]['deaths'])})
+        'Number of cases':(df.iloc[0]['cases'],
+        df.iloc[0]['recovered'],
+        df.iloc[0]['deaths'],df.iloc[0]['active'])})
         return total_dataframe
 
 country_total = get_total_dataframe(selected_country)
