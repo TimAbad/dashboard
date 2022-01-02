@@ -10,7 +10,7 @@ import requests
 import json
 
 st.title('Covid-19 Global Cases')
-st.write("It show ***Cornavirus Cases*** around the world")
+st.write("A Snapshot of ***Cornavirus Cases*** around the world")
 st.sidebar.title("Selector")
 st.markdown('<style>body{background-color: lightblue;}</style>',unsafe_allow_html=True)
 
@@ -51,3 +51,44 @@ if visualization == 'Bar Chart':
         country_total_graph = px.bar(country_total, x='Status',y='Number of cases',
                                         labels={'Number of cases':'Number of cases in %s' % (country_select)}, color='Status')
         st.plotly_chart(country_total_graph)
+elif visualization == 'Pie Chart':
+	if status_select == 'cases':
+		st.title("Total Confirmed Cases ")
+		fig = px.pie(df, values=df['cases'], names=df['country'])
+		st.plotly_chart(fig)
+	elif status_select=='active':
+		st.title("Total Active Cases ")
+		fig = px.pie(df, values=df['active'], names=df['country'])
+		st.plotly_chart(fig)
+	elif status_select=='deaths':
+                st.title("Total Death Cases ")
+                fig = px.pie(df, values=df['deaths'], names=df['country'])
+                st.plotly_chart(fig)
+	else:
+                st.title("Total Recovered Cases ")
+                fig = px.pie(df, values=df['recovered'], names=df['country'])
+                st.plotly_chart(fig)
+elif visualization == 'Line Chart':
+	if status_select == 'deaths':
+		st.title("Total Death Cases Among Countries")
+		fig = px.line(df, x='country', y=df['deaths'])
+		st.plotly_chart(fig)
+	elif status_select =='cases':
+        	st.title("Total Confirmed Cases Among Countries")
+        	fig = px.line(df,x='country',y=df['cases'])
+        	st.plotly_chart(fig)
+	elif status_select =='recovered':
+		st.title("Total Recovered Cases Among Countries")
+		fig = px.line(df,x='country',y=df['recovered'])
+		st.plotly_chart(fig)
+	else:
+		st.title("Total Active Cases Among Countries")
+		fig = px.line(df,x='country',y=df['active'])
+		st.plotly_chart(fig)
+
+def get_table():
+	datatable = df[['country', 'cases', 'recovered', 'deaths', 'active']].sort_values(by=['cases'],ascending=False)
+	return datatable
+
+datatable = get_table()
+st.dataframe(datatable)
