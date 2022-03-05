@@ -24,6 +24,8 @@
         - proxy
         - proxy_http
         - ssl
+        - proxy_wstunnel
+        - proxy_connect
      notify:
         - restart apache2
 
