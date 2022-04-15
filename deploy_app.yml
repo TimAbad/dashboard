@@ -129,6 +129,9 @@
      systemd:
        name: rundashboard
        state: started 
+
+   - name: Disable default site
+     shell: a2dissite 000-default.conf
  
   handlers:
    - name: restart apache2
